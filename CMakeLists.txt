@@ -1,7 +1,8 @@
-# Specify minimum version for CMake
+# Specify minimum required version for CMake
 cmake_minimum_required(VERSION 3.18)
 
 # Project's name
+# Will hereafter be stored in variable "PROJECT_NAME".
 project(zico-engine)
 
 # Specify C++ standard
@@ -14,4 +15,4 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 # Adds an executable target to the build process.
-add_executable(hello ${PROJECT_SOURCE_DIR}/src/main.cpp)
+add_executable(zico-engine ${PROJECT_SOURCE_DIR}/src/main.cpp)

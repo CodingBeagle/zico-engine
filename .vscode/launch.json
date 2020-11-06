@@ -13,7 +13,7 @@
             // I choose "launch" for this configuration.
             "request": "launch",
             // The executable to launch and debug.
-            "program": "${workspaceRoot}/bin/debug/hello.exe",
+            "program": "${workspaceRoot}/bin/debug/zico-engine.exe",
             // StopAtEntry: false simply indicates that the debugger should NOT break/stop at the entrypoint to the application.
             "stopAtEntry": false,
             // Working directory of the configuration

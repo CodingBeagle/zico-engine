@@ -3,6 +3,7 @@
     // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
+        // CMake Build Solution Task
         {
             "label": "Build Project Binary",
             // Type specifies what type of task you want to execute.
@@ -16,6 +17,12 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        // CMake Generate Project Task
+        {
+            "label": "CMake: Generate Project",
+            "type": "shell",
+            "command": "cmake -S ${workspaceRoot} -B build"
         }
     ]
 }
