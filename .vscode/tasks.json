@@ -1,0 +1,21 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Project Binary",
+            // Type specifies what type of task you want to execute.
+            // In this case, I specify it as "shell", meaning it will be executed as a shell command (in PowerShell on Windows)
+            "type": "shell",
+            // cmake can build an already-generated project using "cmake --build <dir>"
+            // Here, I tell it to build the "build" directory, which contains a Visual Studio generated CMake project.
+            "command": "cmake --build build",
+            "group": {
+                // A task which belongs to the "build" group which is marked as default will execute with shortcut "ctrl+shift+B"
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

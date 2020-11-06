@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "cl.exe build and debug",
+            // The "type" property indicates the underlying debugger being used.
+            // This must be "cppvsdbg" when using the Visual Studio Windows debugger.
+            "type": "cppvsdbg",
+            // Request indicates if the configuration should launch the program or simply attach to an already running instance.
+            // I choose "launch" for this configuration.
+            "request": "launch",
+            // The executable to launch and debug.
+            "program": "${workspaceRoot}/bin/debug/hello.exe",
+            // StopAtEntry: false simply indicates that the debugger should NOT break/stop at the entrypoint to the application.
+            "stopAtEntry": false,
+            // Working directory of the configuration
+            "cwd": "${workspaceRoot}",
+            "externalConsole": false,
+            // We want to build the project binaries using the cmake build command before running this debug configuration
+            "preLaunchTask": "Build Project Binary"
+        }
+    ]
+}
