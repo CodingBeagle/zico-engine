@@ -1,3 +1,9 @@
+# Ignore the binary build output folder
+bin/
+
+# Ignore the CMake project folder
+build/
+
 # Prerequisites
 *.d
 
@@ -30,9 +36,3 @@
 *.exe
 *.out
 *.app
-
-# Ignore the binary build output folder
-bin/
-
-# Ignore the CMake project folder
-build/
