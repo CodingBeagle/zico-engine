@@ -16,3 +16,7 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 # Adds an executable target to the build process.
 add_executable(zico-engine ${PROJECT_SOURCE_DIR}/src/main.cpp)
+
+# Set linker options for zico-engine target.
+# As the application is a graphical windows application, I set the ENTRY point to be WinMainCRTStartup, meaning WinMain is used as entry point.
+target_link_options(zico-engine PUBLIC "/ENTRY:WinMainCRTStartup")
