@@ -6,6 +6,8 @@
 LRESULT CALLBACK window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 std::wstring get_last_error_message_as_string();
 
+bool is_application_running = true;
+
 // WinMain is the user-provided entry point for a graphical Windows-based application
 // The return value is NOT used by the operating system. You can use it to convey a status code for the application
 // You're writing.
@@ -41,6 +43,47 @@ int CALLBACK WinMain(
         return -1;
     }
 
+    auto main_window_handle = CreateWindowExW(
+        0,
+        window_class_name, // Window Class to use
+        L"Zico Engine", // Title Bar Text
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, // Size and Position
+        nullptr,
+        nullptr,
+        hInstance,
+        nullptr);
+
+    if (main_window_handle == nullptr)
+    {
+        std::cout << "Failed to create window!" << std::endl;
+        return -1;
+    }
+
+    ShowWindow(main_window_handle, nShowCmd);
+
+    // Game Loop
+
+    // The MSG structure contains information from a message from the thread's message queue.
+    MSG msg;
+
+    while (is_application_running)
+    {
+        // PeekMessage will check the thread message queue for posted messages, and retrieve them if any exists.
+        // It is non-blocking and returns true if a message is available, false if none are available.
+        // We pass PM_REMOVE message to also remove the message if any was present.
+        if (PeekMessage(&msg, main_window_handle, 0, 0, PM_REMOVE)) {
+            // TranslateMessage will convert a virtual key (such as key UP, key DOWN) to a character, such that the application
+            // Can receive information about the actual character that the key represents.
+            TranslateMessage(&msg);
+
+            // The DispatchMessage function call sends a message to the window procedure associated with the window handle in the MSG structure.
+            DispatchMessage(&msg);
+        } else {
+            // Process Game Frame
+        }
+    }
+
     return 0;
 }
 
@@ -52,9 +95,22 @@ LRESULT CALLBACK window_proc(
     UINT uMsg, // The message being processed
     WPARAM wParam, // Additional message information. This depends on the type of message being processed.
     LPARAM lParam) { // Additional message information. This depends on the type of message being processed.
-    // For any messages we do not handle, we can pass it on to the predefined "DefWindowProc", which is a 
-    // Default window procedure function that contains fundamental behaviour shared by all windows.
-    return DefWindowProc(hwnd, uMsg, wParam, lParam);
+    
+    switch (uMsg)
+    {
+        // WM_DESTROY is an event sent when a window is being destroyed (such as when clicking the X button)
+    case WM_DESTROY:
+        is_application_running = false;
+
+        // PostQuitMessage indicates to the system that a thread has made a request to terminate.
+        // It posts a WM_QUIT message to the thread's message queue and returns immediately.
+        PostQuitMessage(0);
+        break;
+    default:
+        // For any messages we do not handle, we can pass it on to the predefined "DefWindowProc", which is a 
+        // Default window procedure function that contains fundamental behaviour shared by all windows.
+        return DefWindowProcW(hwnd, uMsg, wParam, lParam);
+    }
 }
 
 std::wstring get_last_error_message_as_string()
